@@ -1,7 +1,7 @@
 /*
     Last In First Out (LIFO)
 */
-const Node = require('./node');
+const Node = require('../node');
 
 class Stack {
   constructor() {
@@ -9,7 +9,7 @@ class Stack {
     this._size = 0;
   }
 
-  get lenght() {
+  get length() {
     return this._size;
   }
 
@@ -65,7 +65,5 @@ class Stack {
     throw new Error('The stack is empty');
   }
 }
-
-const stack = new Stack();
 
 module.exports = Stack;

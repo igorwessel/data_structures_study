@@ -9,7 +9,7 @@ mockedStack.push('test');
 
 test('create a empty list', () => {
   let a = new Stack();
-  expect(a.lenght).toBe(0);
+  expect(a.length).toBe(0);
 });
 
 test('should return values in stack', () => {
@@ -19,11 +19,11 @@ test('should return values in stack', () => {
 test('method push: add a element in stack', () => {
   let a = new Stack();
   a.push(1);
-  expect(a.lenght).toBe(1);
+  expect(a.length).toBe(1);
   expect(a._top._value).toBe(1);
 });
 
-test('method pop: remove the top element in stack', () => {
+test('method pop: remove element in stack', () => {
   expect(mockedStack.pop()).toBe('test');
 });
 

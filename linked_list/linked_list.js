@@ -1,7 +1,7 @@
 /*
     Lista Encadeada (Lista com Alocação Dinamica) (ENG: Linked List)
 */
-const Node = require('./node');
+const Node = require('../node');
 
 class LinkedList {
   constructor() {
