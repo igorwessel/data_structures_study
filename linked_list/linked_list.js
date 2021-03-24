@@ -1,4 +1,3 @@
-const { customError } = require('../helper');
 /*
     Lista Encadeada (Lista com Alocação Dinamica) (ENG: Linked List)
 */
@@ -17,8 +16,8 @@ class Node {
     return this._value;
   }
 
-  set value(newvalue) {
-    this._value = newvalue;
+  set value(newValue) {
+    this._value = newValue;
   }
 
   set next(node) {
@@ -35,7 +34,7 @@ class LinkedList {
   get values() {
     let pointer = this._head;
     const values = [];
-    while (pointer.next) {
+    for (let i = 0; i < this._size; i++) {
       values.push(pointer.value);
       pointer = pointer.next;
     }
@@ -46,6 +45,19 @@ class LinkedList {
     return this._size;
   }
 
+  _getNode(index) {
+    let pointer = this._head;
+    for (let i = 0; i <= index; i++) {
+      if (i === index) {
+        return pointer;
+      }
+      pointer = pointer.next;
+    }
+    if (!pointer) {
+      throw new Error('List index out of range');
+    }
+  }
+
   /**
    *    Search a node based in index
    *
@@ -54,14 +66,8 @@ class LinkedList {
    * @returns Node Value
    */
   get(index) {
-    let pointer = this._head;
-    for (let i = 0; i < this._size; i++) {
-      if (i === index) {
-        return pointer.value;
-      }
-      pointer = pointer.next;
-    }
-    throw new Error('List index out of range');
+    const node = this._getNode(index);
+    return node.value;
   }
 
   /**
@@ -72,14 +78,8 @@ class LinkedList {
    * @returns The new value
    */
   set(index, value) {
-    let pointer = this._head;
-    for (let i = 0; i < this._size; i++) {
-      if (i === index) {
-        return (pointer.value = value);
-      }
-      pointer = pointer.next;
-    }
-    throw Error('List index out of range');
+    const node = this._getNode(index);
+    return (node.value = value);
   }
 
   /**
@@ -113,19 +113,11 @@ class LinkedList {
       let pointer = this._head;
 
       while (pointer.next) {
+        // If exist next node in head, assign this node to the pointer and move forward
         pointer = pointer.next;
       }
+      // Not exist just insert new element in last position
       pointer.next = new Node(elem);
-
-      //   for (let i = 0; i < this._size; i++) {
-      //     // If exist next node in head, assign this node to the pointer and move forward
-      //     if (pointer.next) {
-      //       pointer = pointer.next;
-      //     } else {
-      //       // Not exist just insert new element in last position
-      //       pointer.next = new Node(elem);
-      //     }
-      //   }
     } else {
       // If dont have element in a list just create a one
       this._head = new Node(elem);
@@ -133,18 +125,45 @@ class LinkedList {
 
     this._size += 1;
   }
+
+  insert(index, elem) {
+    let node = new Node(elem);
+
+    if (index === 0) {
+      node.next = this._head;
+      this._head = node;
+    } else {
+      let pointer = this._getNode(index - 1);
+      node.next = pointer.next;
+      pointer.next = node;
+    }
+    this._size += 1;
+  }
+
+  remove(elem) {
+    if (!this._head) {
+      throw new Error(`element ${elem} is not in list`);
+    } else if (this._head.value === elem) {
+      this._head = this._head.next;
+      this._size -= 1;
+      return true;
+    }
+
+    let pointer = this._head.next;
+    let ancestor = this._head;
+    while (pointer) {
+      if (pointer.value === elem) {
+        ancestor.next = pointer.next;
+        pointer = ancestor;
+        this._size -= 1;
+        return true;
+      }
+
+      ancestor = pointer;
+      pointer = pointer.next;
+    }
+    throw new Error(`element ${elem} is not in list`);
+  }
 }
 
-const list = new LinkedList();
-list.push(1);
-list.push(2);
-list.push(3);
-list.push(4);
-list.push(5);
-list.push(6);
-list.push(7);
-console.log(list.values);
-console.log(list.get(4));
-console.log(list.set(4, 'listando'));
-console.log(list.values);
-console.log(list.indexOf('23'));
+module.exports = LinkedList;
