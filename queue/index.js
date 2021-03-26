@@ -39,13 +39,18 @@ class Queue {
   push(elem) {
     //O(1)
     const node = new Node(elem);
-    if (!this._first && !this._last) {
-      this._first = node;
+
+    if (!this._last) {
       this._last = node;
     } else {
       this._last.next = node;
       this._last = node;
     }
+
+    if (!this._first) {
+      this._first = node;
+    }
+
     this._size += 1;
   }
 
