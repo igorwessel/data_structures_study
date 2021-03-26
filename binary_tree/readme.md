@@ -67,6 +67,8 @@ Tem algumas expressões matemáticas que usam basicamente para saber a mínima e
 
 Percuso na arvore nada mais do que é uma forma sistematica de passar por todos os nós, a gente não pode percorrer a arvore de qualquer maneira temos que seguir um padrão para fazer a passagem pelos nós, então podemos dizer que o percuso nada mais do que é uma visita ao nó quando digo visita uma operação a ser realizada naquele nó.
 
+### Percurso Pós-Ordem
+
 Vamos falar sobre o percurso PÓS-ORDEM, só conseguimos fazer uma visita a raiz quando a gente já percorreu todos os descendentes e outra coisa importante a ser lembrada é que o nó que caracteriza uma sub-arvore pode ser vista como a raiz daqueles respectivos nós, por exemplo:
 
                                                            A
@@ -74,3 +76,5 @@ Vamos falar sobre o percurso PÓS-ORDEM, só conseguimos fazer uma visita a raiz
     (sub-arvore)(pode ser considerado a raiz do nó D)    C   B
                                                         /
                                                        D
+
+Sempre que fomos utilizar o percurso PÓS-ORDEM sempre temos que olhar em todos os nós pela esquerda e depois a direita, tomando como o exemplo vamos supor que iremos usar o percurso pos-ordem para exibir os valores de cada nó e iremos utilizar como exemplo a arvore binaria acima, temos que descer para o nó C olhar se ele tem filho a esquerda se tiver descer para o filho a esquerda checar se esse filho tambem possui filho a esquerda e a direita se não tiver nenhum ai sim printar o valor, subimos para o nó anterior e verificamos se tem filho a direita se não tiver ai sim printar o valor do nó, e consequentemente seguindo a mesma lógica para todos os nós, consequentemente o ultimo nó a ser exibido é a raiz.
