@@ -114,4 +114,5 @@ function init() {
 
   console.log('ROOT HEIGHT: ', tree.height());
 }
-init();
+
+module.exports = BinarySearchTree;
