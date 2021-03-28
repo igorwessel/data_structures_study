@@ -72,7 +72,7 @@ class AVLTree extends BinarySearchTree {
       } else {
         let substitute = this.min(root.right);
         root.value = substitute;
-        root.right = this.remove(substitute, root.right);
+        root.right = this._removeHelper(substitute, root.right);
       }
     }
 
