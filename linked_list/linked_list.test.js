@@ -1,5 +1,5 @@
 const { test, expect } = require('@jest/globals');
-const LinkedList = require('./linked_list');
+const LinkedList = require('.');
 
 let mockedList = new LinkedList();
 mockedList.push(1);

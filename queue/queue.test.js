@@ -1,5 +1,5 @@
 const { test, expect } = require('@jest/globals');
-const Queue = require('./queue');
+const Queue = require('.');
 
 const mockedQueue = new Queue();
 mockedQueue.push(1);

@@ -55,12 +55,57 @@ class AVLTree extends BinarySearchTree {
     }
   }
 
+  remove(elem) {
+    this.root = this._removeHelper(this.root, elem);
+  }
+
+  _removeHelper(root, elem) {
+    if (elem < root.value) {
+      root.left = this._removeHelper(root.left, elem);
+    } else if (elem > root.value) {
+      root.right = this._removeHelper(root.right, elem);
+    } else {
+      if (!root.left) {
+        return root.right;
+      } else if (!root.right) {
+        return root.left;
+      } else {
+        let substitute = this.min(root.right);
+        root.value = substitute;
+        root.right = this.remove(substitute, root.right);
+      }
+    }
+
+    let balance_factor = this._getBalanceFactor(root);
+
+    if (balance_factor > 1) {
+      if (
+        this._getBalanceFactor(root.left) === 0 ||
+        this._getBalanceFactor(root.left) === 1
+      ) {
+        root = this._rotationRightRight(root);
+      } else {
+        root = this._rotationLeftRight(root);
+      }
+    } else if (balance_factor < -1) {
+      if (
+        this._getBalanceFactor(root.right) === 0 ||
+        this._getBalanceFactor(root.right) === -1
+      ) {
+        root = this._rotationLeftLeft(root);
+      } else {
+        root = this._rotationRightLeft(root);
+      }
+    }
+
+    return root;
+  }
+
   _insertHelper(root, node) {
     if (root === null) {
       root = node;
     } else if (node.value < root.value) {
       root.left = this._insertHelper(root.left, node);
-
       if (root.left !== null && this._getBalanceFactor(root) > 1) {
         if (node.value < root.left.value) {
           root = this._rotationRightRight(root);
@@ -82,20 +127,4 @@ class AVLTree extends BinarySearchTree {
   }
 }
 
-function init() {
-  const left_left = [1, 2, 3];
-  const right_right = [3, 2, 1];
-  const left_right = [3, 1, 2];
-  const right_left = [1, 3, 2];
-
-  const tree = new AVLTree();
-
-  for (value of test) {
-    tree.insert(value);
-  }
-  tree.inorder_traversal();
-  console.log();
-  console.log(tree.height());
-}
-
-init();
+module.exports = AVLTree;
